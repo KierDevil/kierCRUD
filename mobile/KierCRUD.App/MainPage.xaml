@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="KierCRUD.App.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Kier CRUD">
+    <Grid
+        Padding="16"
+        RowDefinitions="Auto,*"
+        RowSpacing="12"
+        BackgroundColor="#F8FAFC">
+        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+            <Border
+                WidthRequest="56"
+                HeightRequest="56"
+                Padding="0"
+                Stroke="#1E293B"
+                StrokeThickness="1"
+                BackgroundColor="#020617">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8" />
+                </Border.StrokeShape>
+                <Image Source="kier_logo.png" Aspect="AspectFit" />
+            </Border>
+
+            <VerticalStackLayout Grid.Column="1" Spacing="0" VerticalOptions="Center">
+                <Label Text="Kier CRUD" FontSize="24" FontAttributes="Bold" TextColor="#0F172A" />
+                <Label Text="Student records" FontSize="13" TextColor="#64748B" />
+            </VerticalStackLayout>
+
+            <Label
+                x:Name="StatusLabel"
+                Grid.Column="2"
+                Text="Checking"
+                FontSize="13"
+                TextColor="#64748B"
+                VerticalTextAlignment="Center" />
+        </Grid>
+
+        <Grid Grid.Row="1" ColumnDefinitions="320,*" ColumnSpacing="14">
+            <Border Stroke="#CBD5E1" StrokeThickness="1" Padding="12" BackgroundColor="White">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Label x:Name="FormTitleLabel" Text="Add Record" FontSize="17" FontAttributes="Bold" TextColor="#0F172A" />
+                    <Entry x:Name="NameEntry" Placeholder="Student name" />
+                    <Entry x:Name="EmailEntry" Placeholder="Email" Keyboard="Email" />
+                    <Entry x:Name="AmountEntry" Placeholder="Amount" Keyboard="Numeric" />
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="8" Margin="0,4,0,0">
+                        <Button x:Name="SaveButton" Text="Create" BackgroundColor="#2563EB" TextColor="White" Clicked="OnSaveClicked" />
+                        <Button Grid.Column="1" Text="Clear" Clicked="OnClearClicked" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Column="1" Stroke="#CBD5E1" StrokeThickness="1" Padding="0" BackgroundColor="White">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8" />
+                </Border.StrokeShape>
+                <Grid RowDefinitions="Auto,*">
+                    <Grid Padding="12,10" ColumnDefinitions="*,Auto">
+                        <Label Text="Records" FontSize="17" FontAttributes="Bold" TextColor="#0F172A" />
+                        <Button Grid.Column="1" Text="Refresh" Padding="12,6" Clicked="OnRefreshClicked" />
+                    </Grid>
+
+                    <RefreshView Grid.Row="1" x:Name="RecordsRefreshView" Refreshing="OnRefreshRecords">
+                        <CollectionView x:Name="RecordsCollectionView" SelectionMode="None">
+                            <CollectionView.EmptyView>
+                                <Label Text="No records yet" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#64748B" />
+                            </CollectionView.EmptyView>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Padding="12,8" ColumnDefinitions="2*,2*,Auto,Auto" ColumnSpacing="10">
+                                        <Label Text="{Binding Name}" FontAttributes="Bold" VerticalTextAlignment="Center" />
+                                        <Label Grid.Column="1" Text="{Binding Email}" TextColor="#475569" VerticalTextAlignment="Center" />
+                                        <Label Grid.Column="2" Text="{Binding Amount, StringFormat='PHP {0:N2}'}" FontAttributes="Bold" VerticalTextAlignment="Center" />
+                                        <HorizontalStackLayout Grid.Column="3" Spacing="4">
+                                            <Button Text="Edit" Padding="10,4" Clicked="OnEditClicked" CommandParameter="{Binding .}" />
+                                            <Button Text="Delete" Padding="10,4" TextColor="#DC2626" Clicked="OnDeleteClicked" CommandParameter="{Binding .}" />
+                                        </HorizontalStackLayout>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </RefreshView>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>
