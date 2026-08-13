@@ -1,6 +1,6 @@
 # Kier CRUD
 
-A small Windows desktop student-record CRUD app using the same main technologies as Kier Records, but with a built-in local database file so there is no MySQL password or database setup.
+A small Windows desktop student-record CRUD app 
 
 ## Technologies Used
 
