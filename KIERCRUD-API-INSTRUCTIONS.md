@@ -2,6 +2,51 @@
 
 These instructions apply to the ASP.NET Core API in `backend/KierSimpleCrud.API`.
 
+## How to Add This API to Another App
+
+The other developer does not need to clone this repository. Send them `publish/KierCRUD-API.zip` and have them extract it into a folder.
+
+Start the API from the extracted folder:
+
+```powershell
+.\KierSimpleCrud.API.exe --urls http://localhost:5000
+```
+
+Set the other app's API base URL to:
+
+```text
+http://localhost:5000
+```
+
+The API documentation is available at `http://localhost:5000/swagger`. The health check is `GET /api/health`.
+
+Example request from a JavaScript or TypeScript app:
+
+```javascript
+const API_BASE_URL = "http://localhost:5000";
+
+const response = await fetch(`${API_BASE_URL}/api/students`);
+const students = await response.json();
+```
+
+Example create-student request:
+
+```javascript
+await fetch(`${API_BASE_URL}/api/students`, {
+	method: "POST",
+	headers: { "Content-Type": "application/json" },
+	body: JSON.stringify({
+		studid: "S001",
+		studentName: "Maria Santos",
+		status: "Active"
+	})
+});
+```
+
+Available API groups are `/api/students`, `/api/enrollments`, `/api/courses`, `/api/schoolyears`, `/api/semesters`, and `/api/health`.
+
+If the other app runs on the same computer, `localhost` is correct. If it runs on another computer, start the API with `--urls http://0.0.0.0:5000`, use the API computer's local IP address as the base URL, allow TCP port `5000` through Windows Firewall, and set `ALLOWED_CORS_ORIGINS` to the other app's URL.
+
 - Keep API changes inside `backend/KierSimpleCrud.API` unless a contract change requires a coordinated mobile-client update.
 - Use ASP.NET Core controllers and keep HTTP actions RESTful and predictable.
 - Use Entity Framework Core through `ApplicationDbContext`; do not add a second database access pattern without a clear reason.
