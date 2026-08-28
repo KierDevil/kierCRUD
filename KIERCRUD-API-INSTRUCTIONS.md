@@ -4,7 +4,12 @@ These instructions apply to the ASP.NET Core API in `backend/KierSimpleCrud.API`
 
 ## How to Add This API to Another App
 
-The other developer does not need to clone this repository. Send them `publish/KierCRUD-API.zip` and have them extract it into a folder.
+The other developer does not need to clone this repository. They can click the API package location in GitHub:
+
+- [Open the API ZIP file](https://github.com/KierDevil/kierCRUD/blob/main/publish/KierCRUD-API.zip) and click **Download raw file**.
+- [Open the publish folder](https://github.com/KierDevil/kierCRUD/tree/main/publish) to find the API package and other published files.
+
+After downloading, they should extract `KierCRUD-API.zip` into a folder.
 
 Start the API from the extracted folder:
 
