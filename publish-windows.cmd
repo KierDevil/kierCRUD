@@ -28,9 +28,6 @@ set "SHORTCUT_ICON=%PUBLISH_DIR%\kier_crud.ico"
 
 if not exist "%PUBLISH_DIR%" mkdir "%PUBLISH_DIR%"
 if exist "%PUBLISH_DIR%\Kier CRUD.cmd" del "%PUBLISH_DIR%\Kier CRUD.cmd"
-if exist "%PUBLISH_DIR%\kiercrud.db" del "%PUBLISH_DIR%\kiercrud.db"
-if exist "%PUBLISH_DIR%\kiercrud.db-shm" del "%PUBLISH_DIR%\kiercrud.db-shm"
-if exist "%PUBLISH_DIR%\kiercrud.db-wal" del "%PUBLISH_DIR%\kiercrud.db-wal"
 copy /Y "%~dp0assets\kier_crud.ico" "%SHORTCUT_ICON%" >nul
 
 echo Publishing backend...
