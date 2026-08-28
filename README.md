@@ -1,12 +1,12 @@
 # Kier CRUD
 
-A small Windows desktop student enrollment CRUD app using the same main technologies as Kier Records, but with a built-in local database file so there is no MySQL password or database setup.
+A small Windows desktop student enrollment CRUD app using the same main technologies as Kier Records, backed by a MySQL database.
 
 ## Technologies Used
 
 - ASP.NET Core Web API
 - Entity Framework Core
-- SQLite local database
+- MySQL database
 - Swagger / OpenAPI
 - .NET MAUI
 - Git
@@ -31,15 +31,9 @@ Install these on the other PC:
 
 ## Database Setup
 
-No database setup is required.
+Install MySQL, make sure it is running on `localhost:3306`, and create the `kiercrud` database. The default connection uses user `root` and password `higanbana`.
 
-The backend creates a local SQLite database file automatically:
-
-```text
-backend/KierSimpleCrud.API/kiercrud.db
-```
-
-This file is ignored by Git because it is local data.
+For security, set `DB_CONNECTION_STRING` instead of storing credentials in `appsettings.json` when sharing or deploying the API.
 
 ## How to Run
 
@@ -60,6 +54,8 @@ cd backend\KierSimpleCrud.API
 dotnet restore
 dotnet run --urls http://localhost:5000
 ```
+
+The API requires MySQL to be running before it starts. It creates the tables and seed data automatically.
 
 Desktop app:
 
