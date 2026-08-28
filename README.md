@@ -1,6 +1,6 @@
 # Kier CRUD
 
-A small Windows desktop student-record CRUD app using the same main technologies as Kier Records, but with a built-in local database file so there is no MySQL password or database setup.
+A small Windows desktop student enrollment CRUD app using the same main technologies as Kier Records, but with a built-in local database file so there is no MySQL password or database setup.
 
 ## Technologies Used
 
@@ -80,11 +80,27 @@ http://localhost:5000/swagger
 
 ## API Endpoints
 
-- `GET /api/studentrecords` - list records
-- `GET /api/studentrecords/{id}` - get one record
-- `POST /api/studentrecords` - create record
-- `PUT /api/studentrecords/{id}` - update record
-- `DELETE /api/studentrecords/{id}` - delete record
+- `GET /api/students` - list and search students
+- `GET /api/students/{studid}` - view a student with enrollment history
+- `POST /api/students` - create student
+- `PUT /api/students/{studid}` - update student
+- `DELETE /api/students/{studid}` - delete student when no enrollments use it
+- `GET /api/enrollments` - list and search enrollments with readable joined labels
+- `POST /api/enrollments` - create enrollment
+- `PUT /api/enrollments/{id}` - update enrollment
+- `DELETE /api/enrollments/{id}` - delete enrollment
+- `GET /api/schoolyears` - list school years
+- `POST /api/schoolyears` - create school year
+- `PUT /api/schoolyears/{sycode}` - update school year
+- `DELETE /api/schoolyears/{sycode}` - delete school year when no enrollments use it
+- `GET /api/courses` - list courses
+- `POST /api/courses` - create course
+- `PUT /api/courses/{courscode}` - update course
+- `DELETE /api/courses/{courscode}` - delete course when no enrollments use it
+- `GET /api/semesters` - list semesters
+- `POST /api/semesters` - create semester
+- `PUT /api/semesters/{semcode}` - update semester
+- `DELETE /api/semesters/{semcode}` - delete semester when no enrollments use it
 - `GET /api/health` - backend health check
 
 ## Push to GitHub

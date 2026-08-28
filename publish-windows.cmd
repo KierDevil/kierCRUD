@@ -40,7 +40,7 @@ if errorlevel 1 exit /b 1
 
 echo.
 echo Publishing Windows app...
-"%DOTNET_CMD%" publish "%~dp0mobile\KierCRUD.App\KierCRUD.App.csproj" -f net8.0-windows10.0.19041.0 -c Release -r win-x64 --self-contained true -o "%APP_OUT%"
+"%DOTNET_CMD%" publish "%~dp0mobile\KierCRUD.App\KierCRUD.App.csproj" -f net8.0-windows10.0.19041.0 -c Release -r win-x64 --self-contained true /p:WindowsAppSDKSelfContained=true -o "%APP_OUT%"
 if errorlevel 1 exit /b 1
 
 (

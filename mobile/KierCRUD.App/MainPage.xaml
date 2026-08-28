@@ -25,7 +25,7 @@
 
             <VerticalStackLayout Grid.Column="1" Spacing="0" VerticalOptions="Center">
                 <Label Text="Kier CRUD" FontSize="24" FontAttributes="Bold" TextColor="#0F172A" />
-                <Label Text="Student records" FontSize="13" TextColor="#64748B" />
+                <Label Text="Student enrollment system" FontSize="13" TextColor="#64748B" />
             </VerticalStackLayout>
 
             <Label
@@ -37,55 +37,207 @@
                 VerticalTextAlignment="Center" />
         </Grid>
 
-        <Grid Grid.Row="1" ColumnDefinitions="320,*" ColumnSpacing="14">
-            <Border Stroke="#CBD5E1" StrokeThickness="1" Padding="12" BackgroundColor="White">
+        <Grid Grid.Row="1" ColumnDefinitions="180,*" ColumnSpacing="14">
+            <Border Stroke="#CBD5E1" StrokeThickness="1" Padding="10" BackgroundColor="White">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="8" />
                 </Border.StrokeShape>
-                <VerticalStackLayout Spacing="10">
-                    <Label x:Name="FormTitleLabel" Text="Add Record" FontSize="17" FontAttributes="Bold" TextColor="#0F172A" />
-                    <Entry x:Name="NameEntry" Placeholder="Student name" />
-                    <Entry x:Name="EmailEntry" Placeholder="Email" Keyboard="Email" />
-                    <Entry x:Name="AmountEntry" Placeholder="Amount" Keyboard="Numeric" />
-                    <Grid ColumnDefinitions="*,*" ColumnSpacing="8" Margin="0,4,0,0">
-                        <Button x:Name="SaveButton" Text="Create" BackgroundColor="#2563EB" TextColor="White" Clicked="OnSaveClicked" />
-                        <Button Grid.Column="1" Text="Clear" Clicked="OnClearClicked" />
-                    </Grid>
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Dashboard" FontSize="17" FontAttributes="Bold" TextColor="#0F172A" />
+                    <Button x:Name="StudentsNavButton" Text="Students" Clicked="OnStudentsNavClicked" />
+                    <Button x:Name="EnrollmentsNavButton" Text="Enrollments" Clicked="OnEnrollmentsNavClicked" />
+                    <Button x:Name="SchoolYearsNavButton" Text="School Years" Clicked="OnSchoolYearsNavClicked" />
+                    <Button x:Name="CoursesNavButton" Text="Courses" Clicked="OnCoursesNavClicked" />
+                    <Button x:Name="SemestersNavButton" Text="Semesters" Clicked="OnSemestersNavClicked" />
+                    <Button Text="Refresh" Margin="0,8,0,0" Clicked="OnRefreshClicked" />
                 </VerticalStackLayout>
             </Border>
 
-            <Border Grid.Column="1" Stroke="#CBD5E1" StrokeThickness="1" Padding="0" BackgroundColor="White">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="8" />
-                </Border.StrokeShape>
-                <Grid RowDefinitions="Auto,*">
-                    <Grid Padding="12,10" ColumnDefinitions="*,Auto">
-                        <Label Text="Records" FontSize="17" FontAttributes="Bold" TextColor="#0F172A" />
-                        <Button Grid.Column="1" Text="Refresh" Padding="12,6" Clicked="OnRefreshClicked" />
-                    </Grid>
+            <Grid Grid.Column="1">
+                <Grid x:Name="StudentsPanel" ColumnDefinitions="320,*" ColumnSpacing="14">
+                    <Border Stroke="#CBD5E1" StrokeThickness="1" Padding="12" BackgroundColor="White">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="10">
+                            <Label x:Name="StudentFormTitleLabel" Text="Add Student" FontSize="17" FontAttributes="Bold" TextColor="#0F172A" />
+                            <Entry x:Name="StudentIdEntry" Placeholder="Student ID" />
+                            <Entry x:Name="StudentNameEntry" Placeholder="Student name" />
+                            <Picker x:Name="StudentStatusPicker" Title="Status">
+                                <Picker.Items>
+                                    <x:String>Active</x:String>
+                                    <x:String>Inactive</x:String>
+                                    <x:String>Graduated</x:String>
+                                </Picker.Items>
+                            </Picker>
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="8" Margin="0,4,0,0">
+                                <Button x:Name="SaveStudentButton" Text="Create" BackgroundColor="#2563EB" TextColor="White" Clicked="OnSaveStudentClicked" />
+                                <Button Grid.Column="1" Text="Clear" Clicked="OnClearStudentClicked" />
+                            </Grid>
+                            <Border Stroke="#E2E8F0" StrokeThickness="1" Padding="10" Margin="0,8,0,0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8" />
+                                </Border.StrokeShape>
+                                <VerticalStackLayout Spacing="6">
+                                    <Label x:Name="StudentProfileTitleLabel" Text="Select a student to view history" FontAttributes="Bold" TextColor="#0F172A" />
+                                    <CollectionView x:Name="StudentHistoryCollectionView" HeightRequest="190" SelectionMode="None">
+                                        <CollectionView.EmptyView>
+                                            <Label Text="No enrollment history" TextColor="#64748B" />
+                                        </CollectionView.EmptyView>
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Padding="0,5" ColumnDefinitions="*,*,*,*" ColumnSpacing="8">
+                                                    <Label Text="{Binding SchoolYear}" FontSize="12" />
+                                                    <Label Grid.Column="1" Text="{Binding SemesterName}" FontSize="12" />
+                                                    <Label Grid.Column="2" Text="{Binding Courscode}" FontSize="12" FontAttributes="Bold" />
+                                                    <Label Grid.Column="3" Text="{Binding Status}" FontSize="12" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </VerticalStackLayout>
+                            </Border>
+                        </VerticalStackLayout>
+                    </Border>
 
-                    <RefreshView Grid.Row="1" x:Name="RecordsRefreshView" Refreshing="OnRefreshRecords">
-                        <CollectionView x:Name="RecordsCollectionView" SelectionMode="None">
-                            <CollectionView.EmptyView>
-                                <Label Text="No records yet" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#64748B" />
-                            </CollectionView.EmptyView>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Padding="12,8" ColumnDefinitions="2*,2*,Auto,Auto" ColumnSpacing="10">
-                                        <Label Text="{Binding Name}" FontAttributes="Bold" VerticalTextAlignment="Center" />
-                                        <Label Grid.Column="1" Text="{Binding Email}" TextColor="#475569" VerticalTextAlignment="Center" />
-                                        <Label Grid.Column="2" Text="{Binding Amount, StringFormat='PHP {0:N2}'}" FontAttributes="Bold" VerticalTextAlignment="Center" />
-                                        <HorizontalStackLayout Grid.Column="3" Spacing="4">
-                                            <Button Text="Edit" Padding="10,4" Clicked="OnEditClicked" CommandParameter="{Binding .}" />
-                                            <Button Text="Delete" Padding="10,4" TextColor="#DC2626" Clicked="OnDeleteClicked" CommandParameter="{Binding .}" />
-                                        </HorizontalStackLayout>
-                                    </Grid>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </RefreshView>
+                    <Border Grid.Column="1" Stroke="#CBD5E1" StrokeThickness="1" Padding="0" BackgroundColor="White">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <Grid RowDefinitions="Auto,*">
+                            <Grid Padding="12,10" ColumnDefinitions="*,220">
+                                <Label Text="Students" FontSize="17" FontAttributes="Bold" TextColor="#0F172A" />
+                                <Entry x:Name="StudentSearchEntry" Grid.Column="1" Placeholder="Search student" TextChanged="OnStudentSearchChanged" />
+                            </Grid>
+                            <CollectionView Grid.Row="1" x:Name="StudentsCollectionView" SelectionMode="None">
+                                <CollectionView.EmptyView>
+                                    <Label Text="No students yet" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#64748B" />
+                                </CollectionView.EmptyView>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Padding="12,8" ColumnDefinitions="120,2*,100,Auto" ColumnSpacing="10">
+                                            <Label Text="{Binding Studid}" FontAttributes="Bold" VerticalTextAlignment="Center" />
+                                            <Label Grid.Column="1" Text="{Binding StudentName}" TextColor="#475569" VerticalTextAlignment="Center" />
+                                            <Label Grid.Column="2" Text="{Binding Status}" VerticalTextAlignment="Center" />
+                                            <HorizontalStackLayout Grid.Column="3" Spacing="4">
+                                                <Button Text="View" Padding="10,4" Clicked="OnViewStudentClicked" CommandParameter="{Binding .}" />
+                                                <Button Text="Edit" Padding="10,4" Clicked="OnEditStudentClicked" CommandParameter="{Binding .}" />
+                                                <Button Text="Delete" Padding="10,4" TextColor="#DC2626" Clicked="OnDeleteStudentClicked" CommandParameter="{Binding .}" />
+                                            </HorizontalStackLayout>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </Grid>
+                    </Border>
                 </Grid>
-            </Border>
+
+                <Grid x:Name="EnrollmentsPanel" ColumnDefinitions="320,*" ColumnSpacing="14" IsVisible="False">
+                    <Border Stroke="#CBD5E1" StrokeThickness="1" Padding="12" BackgroundColor="White">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="10">
+                            <Label x:Name="EnrollmentFormTitleLabel" Text="Add Enrollment" FontSize="17" FontAttributes="Bold" TextColor="#0F172A" />
+                            <Picker x:Name="EnrollmentStudentPicker" Title="Student" ItemDisplayBinding="{Binding DisplayName}" />
+                            <Picker x:Name="EnrollmentSchoolYearPicker" Title="School Year" ItemDisplayBinding="{Binding DisplayName}" />
+                            <Picker x:Name="EnrollmentCoursePicker" Title="Course" ItemDisplayBinding="{Binding DisplayName}" />
+                            <Picker x:Name="EnrollmentSemesterPicker" Title="Semester" ItemDisplayBinding="{Binding DisplayName}" />
+                            <Picker x:Name="EnrollmentStatusPicker" Title="Status">
+                                <Picker.Items>
+                                    <x:String>Enrolled</x:String>
+                                    <x:String>Completed</x:String>
+                                    <x:String>Dropped</x:String>
+                                </Picker.Items>
+                            </Picker>
+                            <DatePicker x:Name="EnrollmentDatePicker" />
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="8" Margin="0,4,0,0">
+                                <Button x:Name="SaveEnrollmentButton" Text="Create" BackgroundColor="#2563EB" TextColor="White" Clicked="OnSaveEnrollmentClicked" />
+                                <Button Grid.Column="1" Text="Clear" Clicked="OnClearEnrollmentClicked" />
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Grid.Column="1" Stroke="#CBD5E1" StrokeThickness="1" Padding="0" BackgroundColor="White">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <Grid RowDefinitions="Auto,*">
+                            <Grid Padding="12,10" ColumnDefinitions="*,240">
+                                <Label Text="Enrollments" FontSize="17" FontAttributes="Bold" TextColor="#0F172A" />
+                                <Entry x:Name="EnrollmentSearchEntry" Grid.Column="1" Placeholder="Search or filter" TextChanged="OnEnrollmentSearchChanged" />
+                            </Grid>
+                            <CollectionView Grid.Row="1" x:Name="EnrollmentsCollectionView" SelectionMode="None">
+                                <CollectionView.EmptyView>
+                                    <Label Text="No enrollments yet" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#64748B" />
+                                </CollectionView.EmptyView>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Padding="12,8" ColumnDefinitions="120,2*,110,90,120,90,Auto" ColumnSpacing="8">
+                                            <Label Text="{Binding Studid}" FontAttributes="Bold" VerticalTextAlignment="Center" />
+                                            <Label Grid.Column="1" Text="{Binding StudentName}" TextColor="#475569" VerticalTextAlignment="Center" />
+                                            <Label Grid.Column="2" Text="{Binding SchoolYear}" VerticalTextAlignment="Center" />
+                                            <Label Grid.Column="3" Text="{Binding Courscode}" FontAttributes="Bold" VerticalTextAlignment="Center" />
+                                            <Label Grid.Column="4" Text="{Binding SemesterName}" VerticalTextAlignment="Center" />
+                                            <Label Grid.Column="5" Text="{Binding Status}" VerticalTextAlignment="Center" />
+                                            <HorizontalStackLayout Grid.Column="6" Spacing="4">
+                                                <Button Text="Edit" Padding="10,4" Clicked="OnEditEnrollmentClicked" CommandParameter="{Binding .}" />
+                                                <Button Text="Delete" Padding="10,4" TextColor="#DC2626" Clicked="OnDeleteEnrollmentClicked" CommandParameter="{Binding .}" />
+                                            </HorizontalStackLayout>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <Grid x:Name="CatalogPanel" ColumnDefinitions="320,*" ColumnSpacing="14" IsVisible="False">
+                    <Border Stroke="#CBD5E1" StrokeThickness="1" Padding="12" BackgroundColor="White">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="10">
+                            <Label x:Name="CatalogFormTitleLabel" Text="Add Item" FontSize="17" FontAttributes="Bold" TextColor="#0F172A" />
+                            <Entry x:Name="CatalogCodeEntry" Placeholder="Code" />
+                            <Entry x:Name="CatalogNameEntry" Placeholder="Name" />
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="8" Margin="0,4,0,0">
+                                <Button x:Name="SaveCatalogButton" Text="Create" BackgroundColor="#2563EB" TextColor="White" Clicked="OnSaveCatalogClicked" />
+                                <Button Grid.Column="1" Text="Clear" Clicked="OnClearCatalogClicked" />
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Grid.Column="1" Stroke="#CBD5E1" StrokeThickness="1" Padding="0" BackgroundColor="White">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <Grid RowDefinitions="Auto,*">
+                            <Grid Padding="12,10" ColumnDefinitions="*,Auto">
+                                <Label x:Name="CatalogListTitleLabel" Text="Catalog" FontSize="17" FontAttributes="Bold" TextColor="#0F172A" />
+                                <Button Grid.Column="1" Text="Refresh" Padding="12,6" Clicked="OnRefreshClicked" />
+                            </Grid>
+                            <CollectionView Grid.Row="1" x:Name="CatalogCollectionView" SelectionMode="None">
+                                <CollectionView.EmptyView>
+                                    <Label Text="No items yet" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#64748B" />
+                                </CollectionView.EmptyView>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Padding="12,8" ColumnDefinitions="140,*,Auto" ColumnSpacing="10">
+                                            <Label Text="{Binding Code}" FontAttributes="Bold" VerticalTextAlignment="Center" />
+                                            <Label Grid.Column="1" Text="{Binding Name}" TextColor="#475569" VerticalTextAlignment="Center" />
+                                            <HorizontalStackLayout Grid.Column="2" Spacing="4">
+                                                <Button Text="Edit" Padding="10,4" Clicked="OnEditCatalogClicked" CommandParameter="{Binding .}" />
+                                                <Button Text="Delete" Padding="10,4" TextColor="#DC2626" Clicked="OnDeleteCatalogClicked" CommandParameter="{Binding .}" />
+                                            </HorizontalStackLayout>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 </ContentPage>
