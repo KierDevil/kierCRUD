@@ -1,0 +1,23 @@
+@page
+@model SCSDS.Web.Pages.Purchases.IndexModel
+@{
+    ViewData["Title"] = "Purchases";
+}
+<div class="grid" style="grid-template-columns:300px minmax(0,1fr);">
+    <section class="panel"><h2 class="panel-title">Record Purchase</h2><div class="panel-body">
+        @if (Model.ErrorMessage is not null) { <div class="notice">@Model.ErrorMessage</div> }
+        <form method="post" asp-page-handler="create">
+            <label asp-for="StudentId">Student</label><select asp-for="StudentId"><option value="0">Select student</option>@foreach (var student in Model.Students) { <option value="@student.StudentId">@student.StudentName (@student.StudentNumber)</option> }</select>
+            <label asp-for="ProductId">Product</label><select asp-for="ProductId"><option value="0">Select product</option>@foreach (var product in Model.Products) { <option value="@product.ProductId">@product.ProductName - @product.UnitPrice.ToString("C2")</option> }</select>
+            <label asp-for="Quantity">Quantity</label><input asp-for="Quantity" type="number" min="1" />
+            <label asp-for="PurchaseDate">Purchase date</label><input asp-for="PurchaseDate" type="date" />
+            <div class="actions"><button class="button primary" type="submit">Record Purchase</button><button class="button" type="reset">Clear</button></div>
+        </form>
+    </div></section>
+    <section class="panel"><h2 class="panel-title">Purchase History</h2>
+        @if (Model.Purchases.Count == 0) { <div class="empty">No purchases recorded yet.</div> }
+        else { <div class="table-wrap"><table><thead><tr><th>Student</th><th>Product</th><th>Qty.</th><th>Subtotal</th><th>Discount</th><th>Total</th><th>Date</th></tr></thead><tbody>
+            @foreach (var purchase in Model.Purchases) { <tr><td>@purchase.StudentName<br /><small>@purchase.StudentNumber</small></td><td>@purchase.ProductName</td><td>@purchase.Quantity</td><td>@purchase.Subtotal.ToString("C2")</td><td>@purchase.DiscountRate.ToString("P0")</td><td><strong>@purchase.TotalAmount.ToString("C2")</strong></td><td>@purchase.PurchaseDate.ToString("yyyy-MM-dd")</td></tr> }
+        </tbody></table></div> }
+    </section>
+</div>

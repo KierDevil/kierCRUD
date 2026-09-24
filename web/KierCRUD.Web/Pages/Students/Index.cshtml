@@ -1,0 +1,107 @@
+@page
+@namespace KierCRUD.Web.Pages.Students
+@model IndexModel
+@{
+    ViewData["Title"] = "Students";
+}
+
+<div class="workspace-heading">
+    <div>
+        <h1>Students</h1>
+        <p>Manage student records and enrollment history.</p>
+    </div>
+</div>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
+
+    <div class="split-workspace">
+        <section class="panel form-panel">
+            <h2>Add Student</h2>
+            <form method="post" asp-page-handler="create">
+                <label asp-for="NewStudent.Studid">Student ID</label>
+                <input class="form-control" asp-for="NewStudent.Studid" placeholder="Student ID" />
+                <label asp-for="NewStudent.StudentName">Student name</label>
+                <input class="form-control" asp-for="NewStudent.StudentName" placeholder="Student name" />
+                <label asp-for="NewStudent.Status">Status</label>
+                <select class="form-select" asp-for="NewStudent.Status">
+                    <option>Active</option>
+                    <option>Inactive</option>
+                    <option>Graduated</option>
+                </select>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="reset" class="btn btn-light">Clear</button>
+                </div>
+            </form>
+            <div class="history-box">
+                <strong>Select a student to view history</strong>
+                <p>No enrollment history</p>
+            </div>
+        </section>
+
+        <section class="panel table-panel">
+            <div class="panel-heading">
+                <h2>Students</h2>
+                <form method="get" class="search-form">
+                    <input type="text" name="search" class="form-control" placeholder="Search student" value="@Model.SearchTerm">
+                </form>
+            </div>
+            @if (Model.Students.Count == 0)
+            {
+                <div class="empty-state">No students yet</div>
+            }
+            else
+            {
+                <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var student in Model.Students)
+                    {
+                        <tr>
+                            <td>@student.Studid</td>
+                            <td>@student.StudentName</td>
+                            <td>
+                                <span class="badge bg-@(student.Status == "Active" ? "success" : "warning")">
+                                    @student.Status
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/Students/Edit?studid=@Uri.EscapeDataString(student.Studid)" class="btn btn-sm btn-primary">Edit</a>
+                                <form method="post" asp-page-handler="delete" asp-route-studid="@student.Studid" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+                </div>
+            }
+        </section>
+    </div>
+</div>
+
+<style>
+    .split-workspace { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 14px; }
+    .form-panel, .table-panel { padding: 12px; }
+    .form-panel h2, .table-panel h2 { margin: 0 0 10px; font-size: 17px; }
+    .form-panel label { display: block; margin: 10px 0 5px; font-size: 13px; font-weight: 600; }
+    .form-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+    .history-box { margin-top: 18px; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; color: #0f172a; font-size: 13px; }
+    .history-box p { margin: 8px 0 0; color: #64748b; }
+    .panel-heading { margin-bottom: 0; }
+    .search-form { width: 220px; }
+    .empty-state { display: grid; min-height: 240px; place-items: center; color: #64748b; }
+    @@media (max-width: 900px) { .split-workspace { grid-template-columns: 1fr; } .search-form { width: 160px; } }
+</style>

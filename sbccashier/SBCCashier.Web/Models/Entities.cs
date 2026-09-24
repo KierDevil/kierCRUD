@@ -1,0 +1,10 @@
+namespace SBCCashier.Web.Models;
+
+public sealed class Student { public int Id { get; set; } public string StudentId { get; set; } = ""; public string FullName { get; set; } = ""; public string Course { get; set; } = ""; public string YearLevel { get; set; } = ""; public string Status { get; set; } = "Active"; }
+public class Payment { public int Id { get; set; } public int StudentKey { get; set; } public string PaymentType { get; set; } = "Tuition"; public string Description { get; set; } = ""; public decimal Amount { get; set; } public string PaymentMethod { get; set; } = "Cash"; public string ReferenceNumber { get; set; } = ""; public DateTime PaymentDate { get; set; } = DateTime.Today; }
+public class RegistrarRequest { public int Id { get; set; } public int StudentKey { get; set; } public string DocumentType { get; set; } = "COR"; public string Purpose { get; set; } = ""; public decimal Fee { get; set; } public string Status { get; set; } = "Pending"; public DateTime RequestedDate { get; set; } = DateTime.Today; }
+public class VehiclePass { public int Id { get; set; } public int StudentKey { get; set; } public string PlateNumber { get; set; } = ""; public string VehicleType { get; set; } = "Motorcycle"; public decimal Amount { get; set; } public string PaymentMethod { get; set; } = "Cash"; public string Status { get; set; } = "Active"; public DateTime IssuedDate { get; set; } = DateTime.Today; }
+public sealed class CashierData { public List<Student> Students { get; set; } = []; public List<Payment> Payments { get; set; } = []; public List<RegistrarRequest> RegistrarRequests { get; set; } = []; public List<VehiclePass> VehiclePasses { get; set; } = []; }
+public sealed class PaymentRow : Payment { public string StudentName { get; set; } = ""; public string StudentId { get; set; } = ""; }
+public sealed class RequestRow : RegistrarRequest { public string StudentName { get; set; } = ""; public string StudentId { get; set; } = ""; }
+public sealed class VehiclePassRow : VehiclePass { public string StudentName { get; set; } = ""; public string StudentId { get; set; } = ""; }

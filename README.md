@@ -1,6 +1,6 @@
 # Kier CRUD
 
-A small Windows desktop student enrollment CRUD app using the same main technologies as Kier Records, backed by a MySQL database.
+A small Windows desktop student enrollment CRUD app using the same main technologies as Kier Records, backed by a MySQL database. Now also available as a modern web application!
 
 ## Technologies Used
 
@@ -8,52 +8,59 @@ A small Windows desktop student enrollment CRUD app using the same main technolo
 - Entity Framework Core
 - MySQL database
 - Swagger / OpenAPI
-- .NET MAUI
+- .NET MAUI (Desktop)
+- ASP.NET Core Razor Pages (Web) ✨ NEW
+- Bootstrap 5 (Web)
 - Git
 
 ## Project Structure
 
 - `backend/KierSimpleCrud.API` - ASP.NET Core backend API
+- `web/KierCRUD.Web` - ASP.NET Core Razor Pages web app ✨ NEW
 - `mobile/KierCRUD.App` - .NET MAUI Windows desktop app
+- `STARTWEBSES.cmd` - starts backend + web app
+- `run-web.cmd` - starts web app only ✨ NEW
 - `start.cmd` - opens backend and desktop app
-- `setup-windows.cmd` - one-file setup for another Windows PC
-- `publish-windows.cmd` - creates a click-to-run Windows folder
-- `create-shortcuts.cmd` - adds Desktop and Start Menu shortcuts
 - `run-backend.cmd` - starts only the backend
 - `run-app.cmd` - starts only the desktop app
 
-## Requirements
+## Getting Started - Web App (Recommended)
 
-Install these on the other PC:
-
-- .NET SDK 8 x64, only needed to build from source
-- Git
-
-## Database Setup
-
-Install MySQL, make sure it is running on `localhost:3306`, and create the `kiercrud` database. The default connection uses user `root` and password `higanbana`.
-
-For security, set `DB_CONNECTION_STRING` instead of storing credentials in `appsettings.json` when sharing or deploying the API.
-
-## How to Run
-
-From the project root:
+For the new web-based version, from the project root:
 
 ```powershell
-.\start.cmd
+.\STARTWEBSES.cmd
 ```
 
-This starts visible backend and app launcher windows so you can see what is happening while the app runs. To stop, press `Ctrl+C` or close the terminals.
-
-Or run manually in separate terminals.
-
-Backend:
-
-```powershell
-cd backend\KierSimpleCrud.API
-dotnet restore
-dotnet run --urls http://localhost:5000
+Then open your browser to:
 ```
+http://localhost:5173
+```
+
+See [QUICK_START.md](QUICK_START.md) for a quick guide.  
+See [WEB_APP_SETUP.md](WEB_APP_SETUP.md) for detailed setup instructions.
+
+## USB Setup - All Systems
+
+Copy the complete `kierCRUD` folder to a USB drive or another Windows PC. On the other PC, double-click:
+
+```text
+setupall.cmd
+```
+
+This checks or installs .NET SDK 8 and Node.js LTS when `winget` is available, installs the MAUI Windows workload, restores all .NET projects, installs both frontend dependency sets, builds the Department frontend, and checks MySQL.
+
+The configured MySQL user is `root` with password `higanbana`. MySQL Server must be installed and running on the other PC. The setup script does not delete existing databases. If SQL backups are present in `database-backups`, it offers to restore them.
+
+To copy the current database contents before moving the folder, run:
+
+```text
+backup-all-databases.cmd
+```
+
+After setup, run `STARTALLSYSTEMS.cmd` to start every web system.
+
+## Getting Started - Desktop App (Legacy)
 
 The API requires MySQL to be running before it starts. It creates the tables and seed data automatically.
 

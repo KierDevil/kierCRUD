@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - SCSDS</title>
+    <style>
+        :root { --ink:#24325f; --muted:#5d6680; --line:#cbd4e2; --page:#f7f8fc; --blue:#dbeafe; --purple:#eadcff; --green:#dcefe2; --orange:#f7e5ce; }
+        * { box-sizing:border-box; }
+        body { margin:0; background:var(--page); color:#28324f; font-family:"Segoe UI",Arial,sans-serif; }
+        .shell { max-width:1200px; margin:0 auto; padding:28px 28px 46px; }
+        .brand { text-align:center; margin-bottom:26px; }
+        .brand h1 { margin:0; color:var(--ink); font-size:28px; letter-spacing:.3px; }
+        .brand p { max-width:640px; margin:8px auto 0; color:var(--muted); font-size:14px; }
+        .nav { display:flex; justify-content:center; gap:8px; margin-bottom:24px; }
+        .nav a { padding:8px 18px; border:1px solid var(--line); border-radius:6px; background:white; color:var(--ink); text-decoration:none; font-size:14px; }
+        .nav a:hover, .nav a.active { background:var(--blue); border-color:#9bb9e4; }
+        .panel { border:1px solid var(--line); border-radius:6px; background:#fff; box-shadow:0 2px 5px #23345f0d; }
+        .panel-title { margin:0; padding:12px 16px; border-bottom:1px solid var(--line); color:var(--ink); font-size:17px; }
+        .panel-body { padding:16px; }
+        .grid { display:grid; gap:18px; }
+        .grid-3 { grid-template-columns:repeat(3,minmax(0,1fr)); }
+        .form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+        label { display:block; margin-bottom:5px; color:var(--ink); font-size:13px; font-weight:600; }
+        input, select { width:100%; padding:9px 10px; border:1px solid var(--line); border-radius:4px; background:#fff; color:#28324f; font:inherit; }
+        .button { display:inline-block; padding:8px 13px; border:1px solid var(--line); border-radius:4px; background:#fff; color:var(--ink); cursor:pointer; text-decoration:none; font:inherit; }
+        .button.primary { border-color:#7798cf; background:#dce9fb; }
+        .button.danger { color:#a23333; }
+        .actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+        .metric { padding:18px; min-height:135px; }
+        .metric.green { background:var(--green); } .metric.purple { background:var(--purple); } .metric.blue { background:var(--blue); }
+        .metric h2 { margin:0 0 12px; color:var(--ink); font-size:17px; }
+        .metric strong { display:block; color:var(--ink); font-size:28px; }
+        .metric span { color:var(--muted); font-size:13px; }
+        .table-wrap { overflow-x:auto; } table { width:100%; border-collapse:collapse; } th,td { padding:10px 11px; border-bottom:1px solid #e5e9f0; text-align:left; font-size:13px; } th { color:var(--ink); background:#f3f5fa; font-weight:700; }
+        .badge { display:inline-block; padding:3px 8px; border-radius:10px; background:var(--green); color:#28613a; font-size:12px; }
+        .badge.inactive { background:#f6dddd; color:#8d3333; }
+        .notice { margin-bottom:14px; padding:10px 12px; border:1px solid #e8c9a7; border-radius:4px; background:#fff5e8; color:#785126; }
+        .empty { padding:32px; color:var(--muted); text-align:center; }
+        .rules { margin-top:18px; background:#fffaf3; border-color:#dfc39e; }
+        .rules ul { margin:0; padding-left:20px; color:var(--muted); font-size:13px; line-height:1.8; }
+        @@media (max-width:760px) { .shell { padding:18px 14px 30px; } .grid-3,.form-grid { grid-template-columns:1fr; } .nav { flex-wrap:wrap; } .brand h1 { font-size:22px; } }
+    </style>
+</head>
+<body>
+<div class="shell">
+    <header class="brand">
+        <h1>SCHOOL CANTEEN STUDENT DISCOUNT SYSTEM</h1>
+        <p>Records student purchases, applies active-student discounts, and maintains product stock.</p>
+    </header>
+    <nav class="nav">
+        <a href="/">Dashboard</a>
+        <a href="/Students">Students</a>
+        <a href="/Products">Products</a>
+        <a href="/Purchases">Purchases</a>
+    </nav>
+    <main>@RenderBody()</main>
+</div>
+</body>
+</html>

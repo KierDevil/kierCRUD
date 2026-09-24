@@ -1,0 +1,41 @@
+@page "{studid}"
+@namespace KierCRUD.Web.Pages.Students
+@model EditModel
+@{
+    ViewData["Title"] = "Edit Student";
+}
+
+<div class="container mt-4">
+    <h1>Edit Student</h1>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
+
+    <form method="post" class="mt-4">
+        <div class="form-group mb-3">
+            <label for="Student_Studid" class="form-label">Student ID</label>
+            <input class="form-control" asp-for="Student.Studid" readonly>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="Student_StudentName" class="form-label">Student Name *</label>
+            <input class="form-control" asp-for="Student.StudentName">
+            <span asp-validation-for="Student.StudentName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="Student_Status" class="form-label">Status</label>
+            <select class="form-control" asp-for="Student.Status">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="/Students/Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

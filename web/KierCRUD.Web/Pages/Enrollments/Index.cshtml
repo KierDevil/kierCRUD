@@ -1,0 +1,77 @@
+@page
+@namespace KierCRUD.Web.Pages.Enrollments
+@model IndexModel
+@{
+    ViewData["Title"] = "Enrollments";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Enrollments</h1>
+        <a href="/Enrollments/Create" class="btn btn-success">+ Add Enrollment</a>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
+
+    <form method="get" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Search enrollments..." value="@Model.SearchTerm">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+            @if (!string.IsNullOrEmpty(Model.SearchTerm))
+            {
+                <a href="/Enrollments/Index" class="btn btn-outline-secondary">Clear</a>
+            }
+        </div>
+    </form>
+
+    @if (Model.Enrollments.Count == 0)
+    {
+        <div class="alert alert-info">No enrollments found.</div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Student</th>
+                        <th>Course</th>
+                        <th>Semester</th>
+                        <th>School Year</th>
+                        <th>Enrollment Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var enrollment in Model.Enrollments)
+                    {
+                        <tr>
+                            <td>@enrollment.StudentName (@enrollment.Studid)</td>
+                            <td>@enrollment.CourseTitle</td>
+                            <td>@enrollment.SemesterName</td>
+                            <td>@enrollment.SchoolYearName</td>
+                            <td>@enrollment.EnrollmentDate.ToShortDateString()</td>
+                            <td>
+                                <span class="badge bg-@(enrollment.Status == "Enrolled" ? "success" : "warning")">
+                                    @enrollment.Status
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/Enrollments/Edit?enrollmentId=@enrollment.EnrollmentId" class="btn btn-sm btn-primary">Edit</a>
+                                <form method="post" asp-page-handler="delete" asp-route-enrollmentId="@enrollment.EnrollmentId" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <a href="/" class="btn btn-secondary mt-3">Back to Home</a>
+</div>

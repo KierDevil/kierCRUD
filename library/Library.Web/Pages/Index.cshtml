@@ -1,0 +1,5 @@
+@page
+@model Library.Web.Pages.IndexModel
+@{ViewData["Title"]="Dashboard";}
+<div class="grid stats"><section class="panel metric green"><h2>Books</h2><strong>@Model.Books</strong><span>Book titles in catalog</span></section><section class="panel metric purple"><h2>Students</h2><strong>@Model.Members</strong><span>Registered library students</span></section><section class="panel metric blue"><h2>Active Loans</h2><strong>@Model.ActiveLoans</strong><span>@Model.AvailableCopies available copies</span></section></div>
+<div class="panel" style="margin-top:18px"><h2 class="panel-title">Library Operations</h2><div class="panel-body"><p style="color:var(--muted)">Use the navigation above to manage books, students, and borrowing activity.</p><div class="actions"><a class="button primary" href="/Books">Manage Books</a><a class="button" href="/Students">Manage Students</a><a class="button" href="/Loans">Manage Loans</a></div></div></div>

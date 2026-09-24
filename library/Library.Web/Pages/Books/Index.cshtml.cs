@@ -1,0 +1,3 @@
+using Microsoft.AspNetCore.Mvc;using Microsoft.AspNetCore.Mvc.RazorPages;using Library.Web.Models;using Library.Web.Services;
+namespace Library.Web.Pages.Books;
+public sealed class IndexModel:PageModel{private readonly LibraryStore _store;public IReadOnlyList<Book> Books{get;private set;}=[];public string? ErrorMessage{get;private set;}[BindProperty]public Book NewBook{get;set;}=new();public IndexModel(LibraryStore store)=>_store=store;public void OnGet()=>Load();public IActionResult OnPostCreate(){if(string.IsNullOrWhiteSpace(NewBook.Title)||NewBook.TotalCopies<1){ErrorMessage="Title and at least one copy are required.";Load();return Page();} _store.AddBook(NewBook);return RedirectToPage();}private void Load()=>Books=_store.Books;}

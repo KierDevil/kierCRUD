@@ -1,0 +1,30 @@
+@page
+@model SCSDS.Web.Pages.IndexModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="grid grid-3">
+    <section class="panel metric green"><h2>Students</h2><strong>@Model.StudentCount</strong><span>Registered students</span></section>
+    <section class="panel metric purple"><h2>Purchases</h2><strong>@Model.PurchaseCount</strong><span>Recorded canteen purchases</span></section>
+    <section class="panel metric blue"><h2>Products</h2><strong>@Model.ProductCount</strong><span>Products in the canteen catalog</span></section>
+</div>
+
+<div class="grid" style="grid-template-columns:1.35fr 1fr; margin-top:18px;">
+    <section class="panel">
+        <h2 class="panel-title">Discount Rules</h2>
+        <div class="panel-body">
+            <div class="table-wrap"><table><thead><tr><th>Purchase subtotal</th><th>Active student discount</th></tr></thead><tbody>
+                <tr><td>Below 100.00</td><td>0%</td></tr>
+                <tr><td>100.00 - 199.99</td><td>5%</td></tr>
+                <tr><td>200.00 - 499.99</td><td>10%</td></tr>
+                <tr><td>500.00 and above</td><td>15%</td></tr>
+            </tbody></table></div>
+            <p style="color:var(--muted);font-size:13px;margin-bottom:0;">Inactive students receive 0% discount.</p>
+        </div>
+    </section>
+    <section class="panel">
+        <h2 class="panel-title">Relationship Summary</h2>
+        <div class="panel-body"><ul style="color:var(--muted);line-height:1.9;margin:0;padding-left:20px;"><li>One student can have many purchases.</li><li>One product can appear in many purchases.</li><li>Each purchase belongs to one student and one product.</li></ul></div>
+    </section>
+</div>

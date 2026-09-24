@@ -1,0 +1,28 @@
+@page
+@model SCSDS.Web.Pages.Students.IndexModel
+@{
+    ViewData["Title"] = "Students";
+}
+<div class="grid" style="grid-template-columns:300px minmax(0,1fr);">
+    <section class="panel">
+        <h2 class="panel-title">Add Student</h2>
+        <div class="panel-body">
+            @if (Model.ErrorMessage is not null) { <div class="notice">@Model.ErrorMessage</div> }
+            <form method="post" asp-page-handler="create">
+                <label asp-for="NewStudent.StudentNumber">Student number</label><input asp-for="NewStudent.StudentNumber" placeholder="Student number" />
+                <label asp-for="NewStudent.StudentName">Student name</label><input asp-for="NewStudent.StudentName" placeholder="Student name" />
+                <label asp-for="NewStudent.Program">Program</label><input asp-for="NewStudent.Program" placeholder="Program" />
+                <label asp-for="NewStudent.YearLevel">Year level</label><input asp-for="NewStudent.YearLevel" placeholder="Year level" />
+                <label asp-for="NewStudent.Status">Status</label><select asp-for="NewStudent.Status"><option>Active</option><option>Inactive</option></select>
+                <div class="actions"><button class="button primary" type="submit">Add Student</button><button class="button" type="reset">Clear</button></div>
+            </form>
+        </div>
+    </section>
+    <section class="panel">
+        <h2 class="panel-title">Students</h2>
+        @if (Model.Students.Count == 0) { <div class="empty">No students registered yet.</div> }
+        else { <div class="table-wrap"><table><thead><tr><th>Student number</th><th>Name</th><th>Program</th><th>Year</th><th>Status</th><th></th></tr></thead><tbody>
+            @foreach (var student in Model.Students) { <tr><td>@student.StudentNumber</td><td>@student.StudentName</td><td>@student.Program</td><td>@student.YearLevel</td><td><span class="badge @(student.Status == "Active" ? "" : "inactive")">@student.Status</span></td><td><form method="post" asp-page-handler="delete" asp-route-id="@student.StudentId"><button class="button danger" type="submit">Delete</button></form></td></tr> }
+        </tbody></table></div> }
+    </section>
+</div>

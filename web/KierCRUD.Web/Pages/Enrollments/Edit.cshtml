@@ -1,0 +1,87 @@
+@page "{enrollmentId}"
+@namespace KierCRUD.Web.Pages.Enrollments
+@model EditModel
+@{
+    ViewData["Title"] = "Edit Enrollment";
+}
+
+<div class="container mt-4">
+    <h1>Edit Enrollment</h1>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
+
+    <form method="post" class="mt-4">
+        <div class="form-group mb-3">
+            <label for="Enrollment_Studid" class="form-label">Student *</label>
+            <select class="form-control" asp-for="Enrollment.Studid">
+                <option value="">-- Select Student --</option>
+                @foreach (var student in Model.Students)
+                {
+                    <option value="@student.Studid" selected="@(student.Studid == Model.Enrollment.Studid)">
+                        @student.StudentName (@student.Studid)
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="Enrollment_Courscode" class="form-label">Course *</label>
+            <select class="form-control" asp-for="Enrollment.Courscode">
+                <option value="">-- Select Course --</option>
+                @foreach (var course in Model.Courses)
+                {
+                    <option value="@course.Courscode" selected="@(course.Courscode == Model.Enrollment.Courscode)">
+                        @course.CourseTitle
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="Enrollment_Semcode" class="form-label">Semester *</label>
+            <select class="form-control" asp-for="Enrollment.Semcode">
+                <option value="">-- Select Semester --</option>
+                @foreach (var semester in Model.Semesters)
+                {
+                    <option value="@semester.Semcode" selected="@(semester.Semcode == Model.Enrollment.Semcode)">
+                        @semester.SemesterName
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="Enrollment_Sycode" class="form-label">School Year *</label>
+            <select class="form-control" asp-for="Enrollment.Sycode">
+                <option value="">-- Select School Year --</option>
+                @foreach (var sy in Model.SchoolYears)
+                {
+                    <option value="@sy.Sycode" selected="@(sy.Sycode == Model.Enrollment.Sycode)">
+                        @sy.SyName
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="Enrollment_EnrollmentDate" class="form-label">Enrollment Date</label>
+            <input type="date" class="form-control" asp-for="Enrollment.EnrollmentDate">
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="Enrollment_Status" class="form-label">Status</label>
+            <select class="form-control" asp-for="Enrollment.Status">
+                <option value="Enrolled" selected="@(Model.Enrollment.Status == "Enrolled")">Enrolled</option>
+                <option value="Dropped" selected="@(Model.Enrollment.Status == "Dropped")">Dropped</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="/Enrollments/Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

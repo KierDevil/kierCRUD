@@ -1,0 +1,62 @@
+@page "{tab?}"
+@namespace KierCRUD.Web.Pages.Catalog
+@model IndexModel
+@{
+    ViewData["Title"] = "Catalog Management";
+}
+
+<div class="container mt-4">
+    <h1>Catalog Management</h1>
+
+    <ul class="nav nav-tabs mt-4" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link @(Model.ActiveTab == "SchoolYears" ? "active" : "")" 
+               href="/Catalog/Index?tab=SchoolYears" role="tab">
+                School Years
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link @(Model.ActiveTab == "Courses" ? "active" : "")" 
+               href="/Catalog/Index?tab=Courses" role="tab">
+                Courses
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link @(Model.ActiveTab == "Semesters" ? "active" : "")" 
+               href="/Catalog/Index?tab=Semesters" role="tab">
+                Semesters
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content mt-4">
+        @if (Model.ActiveTab == "SchoolYears")
+        {
+            <partial name="SchoolYearsTab" />
+        }
+        else if (Model.ActiveTab == "Courses")
+        {
+            <partial name="CoursesTab" />
+        }
+        else if (Model.ActiveTab == "Semesters")
+        {
+            <partial name="SemestersTab" />
+        }
+    </div>
+
+    <a href="/" class="btn btn-secondary mt-3">Back to Home</a>
+</div>
+
+<style>
+    .nav-tabs .nav-link {
+        color: #495057;
+        border: none;
+        border-bottom: 2px solid transparent;
+    }
+    .nav-tabs .nav-link.active {
+        color: #0d6efd;
+        border-bottom-color: #0d6efd;
+        background-color: transparent;
+    }
+</style>
+

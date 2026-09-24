@@ -1,0 +1,22 @@
+@page
+@model SCSDS.Web.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Products";
+}
+<div class="grid" style="grid-template-columns:300px minmax(0,1fr);">
+    <section class="panel"><h2 class="panel-title">Add Product</h2><div class="panel-body">
+        @if (Model.ErrorMessage is not null) { <div class="notice">@Model.ErrorMessage</div> }
+        <form method="post" asp-page-handler="create">
+            <label asp-for="NewProduct.ProductName">Product name</label><input asp-for="NewProduct.ProductName" placeholder="Product name" />
+            <label asp-for="NewProduct.UnitPrice">Unit price</label><input asp-for="NewProduct.UnitPrice" type="number" step="0.01" min="0" placeholder="0.00" />
+            <label asp-for="NewProduct.StockQuantity">Stock quantity</label><input asp-for="NewProduct.StockQuantity" type="number" min="0" placeholder="0" />
+            <div class="actions"><button class="button primary" type="submit">Add Product</button><button class="button" type="reset">Clear</button></div>
+        </form>
+    </div></section>
+    <section class="panel"><h2 class="panel-title">Product Catalog</h2>
+        @if (Model.Products.Count == 0) { <div class="empty">No products registered yet.</div> }
+        else { <div class="table-wrap"><table><thead><tr><th>Product</th><th>Unit price</th><th>Stock quantity</th><th></th></tr></thead><tbody>
+            @foreach (var product in Model.Products) { <tr><td>@product.ProductName</td><td>@product.UnitPrice.ToString("C2")</td><td>@product.StockQuantity</td><td><form method="post" asp-page-handler="delete" asp-route-id="@product.ProductId"><button class="button danger" type="submit">Delete</button></form></td></tr> }
+        </tbody></table></div> }
+    </section>
+</div>

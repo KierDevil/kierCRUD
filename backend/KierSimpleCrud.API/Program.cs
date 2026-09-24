@@ -40,11 +40,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 using (var scope = app.Services.CreateScope())
 {
@@ -53,6 +50,13 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseCors("Frontend");
+app.MapGet("/", () => Results.Ok(new
+{
+    status = "ok",
+    app = "Kier CRUD API",
+    health = "/api/health",
+    swagger = "/swagger"
+}));
 app.MapControllers();
 
 app.Run();

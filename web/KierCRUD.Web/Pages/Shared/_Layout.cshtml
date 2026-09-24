@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Kier CRUD</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --page: #f8fafc;
+            --ink: #0f172a;
+            --muted: #64748b;
+            --line: #cbd5e1;
+            --soft-line: #e2e8f0;
+            --blue: #2563eb;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            background: var(--page);
+            color: var(--ink);
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        .app-header {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 12px;
+            align-items: center;
+            padding: 16px 24px 12px;
+        }
+
+        .brand-mark {
+            width: 56px;
+            height: 56px;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            background: #020617;
+        }
+
+        .brand-mark img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-title { font-size: 24px; font-weight: 700; line-height: 1.1; }
+        .brand-subtitle, .connection-status { color: var(--muted); font-size: 13px; }
+
+        .app-body {
+            display: grid;
+            grid-template-columns: 180px minmax(0, 1fr);
+            gap: 14px;
+            padding: 0 24px 24px;
+        }
+
+        .sidebar, .panel {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        .sidebar { padding: 10px; align-self: start; }
+        .sidebar-title { margin: 2px 0 8px; font-size: 17px; font-weight: 700; }
+        .sidebar a {
+            display: block;
+            padding: 9px 10px;
+            border-radius: 6px;
+            color: var(--ink);
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .sidebar a:hover, .sidebar a.active { background: #eff6ff; color: var(--blue); }
+
+        main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        footer {
+            padding: 10px 24px 18px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .btn-primary { background: var(--blue); border-color: var(--blue); }
+        .btn, .form-control, .form-select { border-radius: 6px; }
+
+        @@media (max-width: 760px) {
+            .app-header { padding: 12px 16px; }
+            .app-body { grid-template-columns: 1fr; padding: 0 16px 16px; }
+            .sidebar { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+            .sidebar-title { width: 100%; }
+            .sidebar a { padding: 7px 8px; }
+            .connection-status { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <a class="brand-mark" href="/" aria-label="Kier CRUD home">
+            <img src="~/kier_logo.png" alt="Kier logo" />
+        </a>
+        <div>
+            <div class="brand-title">Kier CRUD</div>
+            <div class="brand-subtitle">Student enrollment system</div>
+        </div>
+        <div class="connection-status">Backend: localhost:5000</div>
+    </header>
+
+    <div class="app-body">
+        <aside class="sidebar">
+            <div class="sidebar-title">Dashboard</div>
+            <a href="/Students/Index">Students</a>
+            <a href="/Enrollments/Index">Enrollments</a>
+            <a href="/Catalog/Index">School Years</a>
+            <a href="/Catalog/Index">Courses</a>
+            <a href="/Catalog/Index">Semesters</a>
+        </aside>
+
+        <main>
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Kier CRUD - Student Record Management System</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
