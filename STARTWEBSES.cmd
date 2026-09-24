@@ -1,5 +1,7 @@
 @echo off
 set "PATH=%ProgramFiles%\dotnet;%PATH%"
+if not defined DB_PASSWORD set /p "DB_PASSWORD=Enter MySQL root password (press Enter for higanbana): "
+if not defined DB_PASSWORD set "DB_PASSWORD=higanbana"
 REM Start both backend and web application
 title Kier CRUD - Multi-window Launcher
 
