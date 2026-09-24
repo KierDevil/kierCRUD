@@ -3,6 +3,9 @@ setlocal
 set "PATH=%ProgramFiles%\dotnet;%ProgramFiles%\nodejs;%PATH%"
 cd /d "%~dp0"
 
+if not defined DB_PASSWORD set /p "DB_PASSWORD=Enter MySQL root password (press Enter for higanbana): "
+if not defined DB_PASSWORD set "DB_PASSWORD=higanbana"
+
 echo Starting Student Enrollment System...
 start "SES - Student Enrollment System" cmd /k call "%~dp0STARTWEBSES.cmd"
 timeout /t 2 /nobreak >nul

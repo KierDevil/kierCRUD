@@ -88,6 +88,8 @@ cd /d "%ROOT%"
 
 echo.
 echo Checking MySQL...
+if not defined DB_PASSWORD set /p "DB_PASSWORD=Enter MySQL root password (press Enter for higanbana): "
+if not defined DB_PASSWORD set "DB_PASSWORD=higanbana"
 set "MYSQL_CMD="
 if exist "%ProgramFiles%\MySQL\MySQL Server 8.0\bin\mysqladmin.exe" set "MYSQL_CMD=%ProgramFiles%\MySQL\MySQL Server 8.0\bin\mysqladmin.exe"
 if not defined MYSQL_CMD for /f "delims=" %%M in ('where mysqladmin 2^>nul') do if not defined MYSQL_CMD set "MYSQL_CMD=%%M"
@@ -96,10 +98,10 @@ if not defined MYSQL_CMD (
     echo Install MySQL Server 8.x and set the root password to higanbana.
     echo The systems cannot use their databases until MySQL is running.
 ) else (
-    "%MYSQL_CMD%" --host=localhost --port=3306 --user=root --password=higanbana ping >nul 2>nul
+    "%MYSQL_CMD%" --host=localhost --port=3306 --user=root --password=%DB_PASSWORD% ping >nul 2>nul
     if errorlevel 1 (
-        echo WARNING: MySQL was found but did not accept root/higanbana.
-        echo Check that MySQL is running and the root password is higanbana.
+        echo WARNING: MySQL was found but did not accept the entered root password.
+        echo Check that MySQL is running and the password is correct.
     ) else (
         set "MYSQL_OK=1"
         echo MySQL is reachable with the configured credentials.

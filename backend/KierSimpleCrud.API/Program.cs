@@ -1,11 +1,18 @@
 using KierSimpleCrud.API.Data;
 using Microsoft.EntityFrameworkCore;
+using MySqlConnector;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")
     ?? "Server=localhost;Port=3306;Database=kiercrud;User=root;Password=higanbana;";
+var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
+if (!string.IsNullOrWhiteSpace(dbPassword))
+{
+    var connectionBuilder = new MySqlConnectionStringBuilder(connectionString) { Password = dbPassword };
+    connectionString = connectionBuilder.ConnectionString;
+}
 
 var allowedCorsOrigins = (builder.Configuration["AllowedCorsOrigins"]
     ?? Environment.GetEnvironmentVariable("ALLOWED_CORS_ORIGINS")
