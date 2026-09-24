@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 var configuredConnection = builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=DepartmentFinancialRecords.db";
 var configuredProvider = builder.Configuration["Database:Provider"] ?? Environment.GetEnvironmentVariable("DB_PROVIDER");
 var mysqlHost = builder.Configuration["Database:Host"] ?? Environment.GetEnvironmentVariable("DB_HOST") ?? "localhost";
-var mysqlPort = builder.Configuration["Database:Port"] ?? Environment.GetEnvironmentVariable("DB_PORT") ?? "3306";
+var mysqlPort = builder.Configuration["Database:Port"] ?? Environment.GetEnvironmentVariable("DB_PORT") ?? "3307";
 var mysqlDatabase = builder.Configuration["Database:Name"] ?? Environment.GetEnvironmentVariable("DB_NAME") ?? "department_financial_records";
 var mysqlUser = builder.Configuration["Database:Username"] ?? Environment.GetEnvironmentVariable("DB_USER") ?? Environment.GetEnvironmentVariable("DB_USERNAME") ?? "root";
 var mysqlPassword = builder.Configuration["Database:Password"] ?? Environment.GetEnvironmentVariable("DB_PASSWORD");

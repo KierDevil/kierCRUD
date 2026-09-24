@@ -20,7 +20,7 @@ if not exist "%~dp0database-backups" (
 for %%D in (kiercrud department_financial_records scsds library sbccashier) do (
     if exist "%~dp0database-backups\%%D.sql" (
         echo Restoring %%D...
-        "%MYSQL%" --host=localhost --port=3306 --user=root --password=%DB_PASSWORD% < "%~dp0database-backups\%%D.sql"
+        "%MYSQL%" --host=localhost --port=3307 --user=root --password=%DB_PASSWORD% < "%~dp0database-backups\%%D.sql"
         if errorlevel 1 (
             echo Restore failed for %%D.
             exit /b 1

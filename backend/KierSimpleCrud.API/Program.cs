@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")
-    ?? "Server=localhost;Port=3306;Database=kiercrud;User=root;Password=higanbana;";
+    ?? "Server=localhost;Port=3307;Database=kiercrud;User=root;Password=higanbana;";
 var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
 if (!string.IsNullOrWhiteSpace(dbPassword))
 {

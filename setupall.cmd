@@ -98,7 +98,7 @@ if not defined MYSQL_CMD (
     echo Install MySQL Server 8.x and set the root password to higanbana.
     echo The systems cannot use their databases until MySQL is running.
 ) else (
-    "%MYSQL_CMD%" --host=localhost --port=3306 --user=root --password=%DB_PASSWORD% ping >nul 2>nul
+    "%MYSQL_CMD%" --host=localhost --port=3307 --user=root --password=%DB_PASSWORD% ping >nul 2>nul
     if errorlevel 1 (
         echo WARNING: MySQL was found but did not accept the entered root password.
         echo Check that MySQL is running and the password is correct.

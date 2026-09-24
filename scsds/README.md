@@ -16,4 +16,4 @@ Discount rules are based on purchase subtotal and apply only to students with Ac
 - 200.00-499.99: 10%
 - 500.00 and above: 15%
 
-Data is stored in the MySQL database `scsds` on `localhost:3306`.
+Data is stored in the MySQL database `scsds` on `localhost:3307`.
