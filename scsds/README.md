@@ -2,7 +2,7 @@
 
 Standalone application based on the uploaded ERD. It does not share the SES API or database.
 
-Run from `c:\kierCRUD\scsds`:
+Run from the repository root `c:\kierCRUD`:
 
 ```powershell
 .\STARTWEBSCSDS.cmd
